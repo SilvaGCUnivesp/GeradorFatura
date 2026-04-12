@@ -1,0 +1,7 @@
+Essa é somente a estrutura inicial. Podemos alterar conforme o necessário.
+Além do envio via email, também criei uma tela inicial(somente visual pois ainda não criei as funções pra pegar os campos).
+Nesta tela irei adicionar a possibilidade de criar clientes frequentes, salvando algumas informações, como CPF ou CNPJ. Assim como um código interno para identificação.
+
+-----> templates/SendService.html   --------------> Task de interface HTML (ainda versão crua). A pasta é para qualquer código de interface
+-----> static -------> Pasta para salvar qualquer imagem ou arquivos utilizados no processo que são IMUTAVEIS ou que possam ser alterados somente alterando o apontamento para o novo arquivo
+-----> app ---> Pasta para qualquer task que realize passos no backend.
