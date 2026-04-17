@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro</title>
+  <style>
+    body {
+        background-image: url('../static/img/background.png');
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #e0e0e0; /* cinza claro */
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      background: #fff; /* branco */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      width: 320px;
+    }
+    .container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #b30000; /* vermelho */
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #b30000; /* vermelho */
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .error {
+      color: #b30000;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #b30000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #800000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Cadastro</h2>
+    <div class="form-group">
+      <label>Tipo de Documento:</label>
+      <label><input type="radio" name="tipo" value="cpf" checked> CPF</label>
+      <label><input type="radio" name="tipo" value="cnpj"> CNPJ</label>
+    </div>
+    <div class="form-group">
+      <label id="labelDocumento">CPF:</label>
+      <input type="text" id="documento" placeholder="Digite seu CPF">
+      <div id="erroDocumento" class="error"></div>
+    </div>
+    <div class="form-group">
+      <label>Nome:</label>
+      <input type="text" id="nome" placeholder="Nome do cliente">
+    </div>
+    <button type="button" onclick="validar()">Cadastrar</button>
+  </div>
+
+  <script>
+    const radios = document.querySelectorAll('input[name="tipo"]');
+    const labelDocumento = document.getElementById('labelDocumento');
+    const inputDocumento = document.getElementById('documento');
+    const erroDocumento = document.getElementById('erroDocumento');
+
+    radios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.value === 'cpf') {
+          labelDocumento.textContent = 'CPF:';
+          inputDocumento.placeholder = 'Digite seu CPF';
+        } else {
+          labelDocumento.textContent = 'CNPJ:';
+          inputDocumento.placeholder = 'Digite seu CNPJ';
+        }
+        erroDocumento.textContent = '';
+        inputDocumento.value = '';
+      });
+    });
+
+    function validar() {
+      const tipo = document.querySelector('input[name="tipo"]:checked').value;
+      const valor = inputDocumento.value.trim();
+      let regex;
+
+      if (tipo === 'cpf') {
+        regex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{11}$/;
+        if (!regex.test(valor)) {
+          erroDocumento.textContent = 'CPF inválido. Use 11 dígitos ou formato 000.000.000-00.';
+          return;
+        }
+      } else {
+        regex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$|^\d{14}$/;
+        if (!regex.test(valor)) {
+          erroDocumento.textContent = 'CNPJ inválido. Use 14 dígitos ou formato 00.000.000/0000-00.';
+          return;
+        }
+      }
+
+      erroDocumento.textContent = '';
+      alert('Cadastro realizado com sucesso!');
+    }
+  </script>
+</body>
+</html>
